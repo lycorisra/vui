@@ -1,0 +1,31 @@
+{
+  "name": "vue-ui",
+  "version": "1.0.0",
+  "description": "一套基于vue.js的组件库，轻量、易于使用",
+  "main": "main.js",
+  "scripts": {
+    "test": "test",
+    "dev": "cooking watch -c build/cooking.demo.js -p"
+  },
+  "keywords": [
+    "vue.js",
+    "lightweight"
+  ],
+  "author": "lycorisra",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^2.0.5",
+    "vue-loader": "^9.8.0",
+    "vue-router": "^2.0.0",
+    "cooking": "^1.1.0",
+    "cooking-vue2": "^0.1.4",
+    "cooking-cli": "lastest",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.1",
+    "html-webpack-plugin": "^2.22.0",
+    "extract-text-webpack-plugin": "^1.0.1"
+  },
+  "devDependencies": {
+    "cooking-vue2": "^0.1.4"
+  }
+}

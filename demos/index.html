@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>vue-sample</title>
+    <link rel="stylesheet" href="../dist/vue-ui.css"></link>
+</head>
+
+<body>
+    <div id="app">
+        <el-select textField="text" valueField="value" :checkedItem="option" placeholder="请选择" @change="change">
+        	<el-option v-for="item in options" :text.sync="item.label" :value.sync="item.value"></el-option>
+		</el-select>
+		<input type="button" value="获取选中项" @click="submit" />
+
+        
+		<el-select textField="text" valueField="value" placeholder="请选择" @change="change">
+        	<el-option v-for="item in options" :text.sync="item.label" :value.sync="item.value"></el-option>
+		</el-select>
+		<input type="button" value="获取value&text" @click="submit" />
+    </div>
+    <!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.js"></script>
+    <!--<script type="text/javascript" src="../dist/vender.js"></script>-->
+    <script type="text/javascript" src="../dist/select/vue-ui.js"></script>
+    <!--<script type="text/javascript" src="../dist/app.js"></script>-->
+    
+    <script>
+    var app = new Vue({
+        el: '#app',
+        mounted: function () {
+        },
+        //updated: function () {
+        //    $('.table-body').fittable();
+        //},
+        data: {
+            options: [{
+                value: '选项1',
+                label: '黄金糕'
+            }, {
+                value: '选项2',
+                label: '双皮奶'
+            }, {
+                value: '选项3',
+                label: '蚵仔煎'
+            }, {
+                value: '选项4',
+                label: '龙须面'
+            }, {
+                value: '选项5',
+                label: '北京烤鸭'
+            }],
+            value: '选项2',
+            text: '',
+            option: {value:'选项3',text:''} 
+        },
+        methods:{
+            submit(event){
+                var button = event.target.value;
+                console.log(button,this.value,this.text,this.option);
+                // console.log('button:'+value:'+this.value1+'text:'+this.text1,this.option);
+                // console.log('value:'+this.option.value+'text:'+this.option.text);
+            },
+            change(e){
+                // console.log(e)
+                // console.log('value:'+this.option.value+'text:'+this.option.text);
+            }
+        }
+    });
+    </script>
+</body>
+</html>
