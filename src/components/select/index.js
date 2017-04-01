@@ -1,5 +1,5 @@
-import Select from './select';
-import Option from './option';
+import Select from './src/select';
+import Option from './src/option';
 
 /* istanbul ignore next */
 export default function (Vue) {

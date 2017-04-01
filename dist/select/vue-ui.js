@@ -677,7 +677,7 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "F:\\webfrontend\\github\\vue-ui\\src\\components\\select\\select.vue"
+	__vue_options__.__file = "F:\\webfrontend\\github\\vui\\src\\components\\select\\select.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 
@@ -688,9 +688,9 @@
 	  if (!hotAPI.compatible) return
 	  module.hot.accept()
 	  if (!module.hot.data) {
-	    hotAPI.createRecord("data-v-28f479d6", __vue_options__)
+	    hotAPI.createRecord("data-v-e20e7f2e", __vue_options__)
 	  } else {
-	    hotAPI.reload("data-v-28f479d6", __vue_options__)
+	    hotAPI.reload("data-v-e20e7f2e", __vue_options__)
 	  }
 	})()}
 	if (__vue_options__.functional) {console.error("[vue-loader] select.vue: functional components are not supported and should be defined in plain js files using render functions.")}
@@ -735,7 +735,9 @@
 	        tagfield: [Boolean, String, Number, Array, Object],
 	        valuefield: String,
 	        textfield: String,
-	        multiple: Boolean
+	        multiple: Boolean,
+	        required: [Boolean, String],
+	        placeholder: [String]
 	    },
 	    data: function data() {
 	        return {
@@ -1142,7 +1144,8 @@
 	    attrs: {
 	      "type": "text",
 	      "readonly": !_vm.filter || _vm.multiple,
-	      "placeholder": "请选择项"
+	      "required": _vm.required,
+	      "placeholder": _vm.placeholder
 	    },
 	    domProps: {
 	      "value": _vm._s(_vm.text)
@@ -1164,7 +1167,7 @@
 	if (false) {
 	  module.hot.accept()
 	  if (module.hot.data) {
-	     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-28f479d6", module.exports)
+	     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-e20e7f2e", module.exports)
 	  }
 	}
 
@@ -1191,7 +1194,7 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "F:\\webfrontend\\github\\vue-ui\\src\\components\\select\\option.vue"
+	__vue_options__.__file = "F:\\webfrontend\\github\\vui\\src\\components\\select\\option.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 
@@ -1202,9 +1205,9 @@
 	  if (!hotAPI.compatible) return
 	  module.hot.accept()
 	  if (!module.hot.data) {
-	    hotAPI.createRecord("data-v-44f12e62", __vue_options__)
+	    hotAPI.createRecord("data-v-438baf62", __vue_options__)
 	  } else {
-	    hotAPI.reload("data-v-44f12e62", __vue_options__)
+	    hotAPI.reload("data-v-438baf62", __vue_options__)
 	  }
 	})()}
 	if (__vue_options__.functional) {console.error("[vue-loader] option.vue: functional components are not supported and should be defined in plain js files using render functions.")}
@@ -1292,7 +1295,7 @@
 	if (false) {
 	  module.hot.accept()
 	  if (module.hot.data) {
-	     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-44f12e62", module.exports)
+	     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-438baf62", module.exports)
 	  }
 	}
 

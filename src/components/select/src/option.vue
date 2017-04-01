@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import Emittter from '../../utils/emitter';
+    import Emittter from '../../../utils/emitter';
     export default {
         mixins:[Emittter],
         name: 'ElOption',

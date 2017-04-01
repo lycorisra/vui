@@ -1,27 +1,27 @@
 
 <template>
     <div>
-        <div class="date-panel-sidebar" v-if="shortcuts.length">
+        <div :class="[prefixCls + '-sidebar']" v-if="shortcuts.length">
 
         </div>
-        <div class="date-panel-body">
-            <div class="date-picker-header" v-show="currentView!=='time'">
+        <div :class="[prefixCls + '-content']">
+            <div :class="[prefixCls + '-header']" v-show="currentView!=='time'">
                 <span @click="prevYear">
                     <icon type="ios-arrow-left"></icon>
                 </span>
-                <span :class="iconBtnCls('prev')" @click="prevMonth" v-show="currentView === 'date'">
+                <span :class="[prefixCls + '-prev']" @click="prevMonth" v-show="currentView === 'date'">
                     <icon type="ios-arrow-left"></icon>
                 </span>
-                <span :class="[datePrefixCls + '-header-label']" @click="showYearPicker">{{ yearLabel }}</span>
-                <span :class="[datePrefixCls + '-header-label']" @click="showMonthPicker" v-show="currentView === 'date'">{{ monthLabel }}</span>
-                <span :class="iconBtnCls('next', '-double')" @click="nextYear">
+                <span :class="[prefixCls + '-header-label']" @click="showYearPicker">{{ yearLabel }}</span>
+                <span :class="[prefixCls + '-header-label']" @click="showMonthPicker" v-show="currentView === 'date'">{{ monthLabel }}</span>
+                <span :class="[prefixCls + '-next-double']" @click="nextYear">
                     <icon type="ios-arrow-right"></icon>
                 </span>
-                <span :class="iconBtnCls('next')" @click="nextMonth" v-show="currentView === 'date'">
+                <span :class="[prefixCls + '-next']" @click="nextMonth" v-show="currentView === 'date'">
                     <icon type="ios-arrow-right"></icon>
                 </span>
             </div>
-            <div class="date-picker-content">
+            <div :class="[prefixCls + '-mode']">
                 <date-table v-show="currentView === 'date'"
                     :year="year"
                     :month="month"
@@ -64,17 +64,17 @@
 </template>
 
 <script>
-    import icon from '../../icon/icon.vue';
+    import icon from '../../../icon/icon.vue';
     import DateTable from '../base/date-table.vue';
     import YearTable from '../base/year-table.vue';
     import MonthTable from '../base/month-table.vue';
     import TimePicker from './time.vue';
     import confirm from '../base/confirm.vue';
     import Mixin from './mixin';
-    import Locale from '../../../mixins/locale';
+    import Locale from '../../../../mixins/locale';
     import { initTimeDate } from '../util';
     
-    const prefixCls = 'ivu-picker-panel';
+    const prefixCls = 'date-picker';
     const datePrefixCls = 'ivu-date-picker';
 
     export default {

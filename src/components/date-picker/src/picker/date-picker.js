@@ -1,7 +1,7 @@
 import Picker from '../picker.vue'
 import DatePanel from '../panel/date.vue'
 import DateRangePanel from '../panel/date-range.vue'
-import { oneOf } from '../../../utils/assist'
+import { oneOf } from '../../../../utils/assist'
 
 const getPanel = function (type) {
     if (type === 'daterange' || type === 'datetimerange') {

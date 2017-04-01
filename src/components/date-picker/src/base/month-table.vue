@@ -4,7 +4,7 @@
     </div>
 </template>
 <script>
-    import { deepCopy } from '../../../utils/assist';
+    import { deepCopy } from '../../../../utils/assist';
     const prefixCls = 'ivu-date-picker-cells';
 
     export default {

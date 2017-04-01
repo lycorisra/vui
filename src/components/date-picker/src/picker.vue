@@ -1,37 +1,5 @@
-<style>
-    .date-picker{position:relative}
-    .date-picker .select-dropdown {
-        position: absolute;
-        z-index: 100;
-        width: auto;
-        padding: 5px;
-        margin: 5px 0;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        box-shadow: 0 1px 6px rgba(0,0,0,.2);
-        box-sizing: border-box;
-        font-size: 12px;
-    }
-     .date-panel-body {
-        float: left;
-    }
-    .date-picker-header {
-        text-align: center;
-        border-bottom: 1px solid #e3e8ee;
-    }
-    .date-picker-cells {
-        width: 196px;
-        margin: 10px;
-    }
-    .ivu-date-picker-cells-cell {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
-    }
-</style>
 <template>
-    <div :class="[prefixCls]" v-clickoutside="handleClose">
+    <div :class="prefixCls" v-clickoutside="handleClose">
         <div ref="reference" :class="[prefixCls + '-rel']">
             <slot>
                 <input :value="visualValue"
@@ -51,10 +19,10 @@
 </template>
 
 <script>
-    // import Vue from 'vue';
-    import drop from '../../components/select/dropdown.vue';
-    import clickoutside from '../../directives/clickoutside';
-    import { oneOf } from '../../utils/assist';
+    import Vue from 'vue';
+    import drop from '../../../components/select/src/dropdown.vue';
+    import clickoutside from '../../../directives/clickoutside';
+    import { oneOf } from '../../../utils/assist';
     import { formatDate, parseDate } from './util';
 
     const prefixCls = 'date-picker';

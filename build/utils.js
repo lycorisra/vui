@@ -59,3 +59,16 @@ exports.styleLoaders = function (options) {
 	}
 	return output
 }
+
+exports.getArgv = function (key) {
+	var value,
+		args = process.env.args.split(','),
+		index = args.indexOf(key);
+
+	if (index > -1) {
+		var name = args[index + 1];
+		value = args[index + 1];
+	}
+	console.log('getArgv',value,args)
+	return value;
+}

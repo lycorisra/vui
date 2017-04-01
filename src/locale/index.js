@@ -1,7 +1,7 @@
 // https://github.com/ElemeFE/element/blob/dev/src/locale/index.js
 
 import defaultLang from './lang/zh-CN';
-// import Vue from 'vue';
+import Vue from 'vue';
 // import deepmerge from 'deepmerge';
 import Format from './format';
 

@@ -47,6 +47,10 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
+				// use: ExtractTextPlugin.extract({
+				// 	fallback: "style-loader",
+				// 	use: "css-loader"
+				// }),
 				loader:  extractTextPlugin.extract("style-loader","css-loader")
 			},
 			{
@@ -83,7 +87,7 @@ module.exports = {
 	plugins: [
 		// new webpack.BannerPlugin('This file is created by zhaoda'),
 		// new webpack.optimize.CommonsChunkPlugin('vender', 'vender.js'),
-		new extractTextPlugin("vue-ui.css", { allChunks: true }) 
+		new extractTextPlugin("[name].css", { allChunks: true }) 
 		// new webpack.optimize.UglifyJsPlugin({
 		// 	compress: {
 		// 		warnings: false

@@ -132,7 +132,7 @@
     </div>
 </template>
 <script>
-    import Icon from '../../icon/icon.vue';
+    import Icon from '../../../icon/icon.vue';
     import DateTable from '../base/date-table.vue';
     import YearTable from '../base/year-table.vue';
     import MonthTable from '../base/month-table.vue';
@@ -141,7 +141,7 @@
     import { toDate, prevMonth, nextMonth, initTimeDate } from '../util';
 
     import Mixin from './mixin';
-    import Locale from '../../../mixins/locale';
+    import Locale from '../../../../mixins/locale';
 
     const prefixCls = 'ivu-picker-panel';
     const datePrefixCls = 'ivu-date-picker';

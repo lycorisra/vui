@@ -1,4 +1,4 @@
-import DatePicker from './picker/date-picker';
+import DatePicker from './src/picker/date-picker';
 
 const components = { DatePicker };
 

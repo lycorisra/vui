@@ -87,7 +87,7 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "F:\\webfrontend\\github\\vue-ui\\demos\\App.vue"
+	__vue_options__.__file = "F:\\webfrontend\\github\\vui\\demos\\App.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 
@@ -98,9 +98,9 @@
 	  if (!hotAPI.compatible) return
 	  module.hot.accept()
 	  if (!module.hot.data) {
-	    hotAPI.createRecord("data-v-18e9637d", __vue_options__)
+	    hotAPI.createRecord("data-v-1263d06c", __vue_options__)
 	  } else {
-	    hotAPI.reload("data-v-18e9637d", __vue_options__)
+	    hotAPI.reload("data-v-1263d06c", __vue_options__)
 	  }
 	})()}
 	if (__vue_options__.functional) {console.error("[vue-loader] App.vue: functional components are not supported and should be defined in plain js files using render functions.")}
@@ -145,6 +145,8 @@
 	      }],
 	      value: '选项2',
 	      text: '',
+	      required: 'required',
+	      placeholder: 'qweee',
 	      option: { value: '选项3', text: '' }
 	    };
 	  },
@@ -172,7 +174,8 @@
 	      "textField": "text",
 	      "valueField": "value",
 	      "checkedItem": _vm.option,
-	      "placeholder": "请选择"
+	      "placeholder": "placeholder",
+	      "required": _vm.required
 	    },
 	    on: {
 	      "change": _vm.change
@@ -196,7 +199,7 @@
 	    attrs: {
 	      "textField": "text",
 	      "valueField": "value",
-	      "placeholder": "请选择"
+	      "placeholder": "placeholder"
 	    },
 	    on: {
 	      "change": _vm.change
@@ -222,7 +225,7 @@
 	if (false) {
 	  module.hot.accept()
 	  if (module.hot.data) {
-	     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-18e9637d", module.exports)
+	     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-1263d06c", module.exports)
 	  }
 	}
 

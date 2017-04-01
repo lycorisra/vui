@@ -1,23 +1,33 @@
-// export default {
-//     bind() {
-//         this.documentHandler = (e) => {
-//             if (this.el.contains(e.target)) {
-//                 return false;
-//             }
-//             if (this.expression) {
-//                 this.vm[this.expression]();
-//             }
-//         };
-//         document.addEventListener('click', this.documentHandler);
-//     },
-//     update() {
+/* vue1.0语法
+export default {
+    bind() {
+        this.documentHandler = (e) => {
+            if (this.el.contains(e.target)) {
+                return false;
+            }
+            if (this.expression) {
+                this.vm[this.expression]();
+            }
+        };
+        document.addEventListener('click', this.documentHandler);
+    },
+    update() {
 
-//     },
-//     unbind() {
-//         document.removeEventListener('click', this.documentHandler);
-//     }
-// };
+    },
+    unbind() {
+        document.removeEventListener('click', this.documentHandler);
+    }
+};
+*/
 
+import { on } from '../utils/dom';
+
+const nodeList = [];
+const ctx = '@@clickoutsideContext';
+
+on(document, 'click', e => {
+	nodeList.forEach(node => node[ctx].documentHandler(e));
+});
 /**
  * v-clickoutside
  * @desc 点击元素外面才会触发的事件
@@ -26,8 +36,6 @@
  * <div v-element-clickoutside="handleClose">
  * ```
  */
-const nodeList = [];
-const ctx = '@@clickoutsideContext';
 export default {
 	bind(el, binding, vnode) {
 		const id = nodeList.push(el) - 1;

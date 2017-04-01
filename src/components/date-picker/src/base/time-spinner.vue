@@ -19,7 +19,7 @@
 </template>
 <script>
     import Options from '../time-mixins';
-    import { deepCopy, scrollTop, firstUpperCase } from '../../../utils/assist';
+    import { deepCopy, scrollTop, firstUpperCase } from '../../../../utils/assist';
 
     const prefixCls = 'ivu-time-picker-cells';
 

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import { getStyle } from '../../utils/assist'
+    import { getStyle } from '../../../utils/assist'
     import Popper from 'popper.js'
 
     export default {

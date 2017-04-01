@@ -1,25 +1,34 @@
 var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
+var entry = require('../src/entry')
+var main = entry[utils.getArgv('-c')] || './demos/index.js';
+
+var extractTextPlugin = require("extract-text-webpack-plugin")
+
 var projectRoot = path.resolve(__dirname, '../')
 
 var env = process.env.NODE_ENV
-// check env & config/index.js to decide weither to enable CSS Sourcemaps for the
-// various preprocessor loaders added to vue-loader at the end of this file
-var cssSourceMapDev = (env === 'development' && config.dev.cssSourceMap)
-var cssSourceMapProd = (env === 'production' && config.build.productionSourceMap)
-var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
+
 var rootPath = 'F:/webfrontend/nodejs/node_modules' || path.join(__dirname, 'node_modules');
 
 module.exports = {
 	entry: {
-		app: './demos/index.js'
+		app: main
 	},
 	output: {
 		path: config.build.assetsRoot,
 		publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
 		filename: '[name].js'
 	},
+    // externals: {
+    //     vue: {
+    //         root: 'Vue',
+    //         commonjs: 'vue',
+    //         commonjs2: 'vue',
+    //         amd: 'vue'
+    //     }
+    // },
 	resolve: {
 		root: [
 			rootPath
@@ -39,20 +48,6 @@ module.exports = {
 		root: rootPath
 	},
 	module: {
-		preLoaders: [
-			// {
-			//   test: /\.vue$/,
-			//   loader: 'eslint',
-			//   include: projectRoot,
-			//   exclude: /node_modules/
-			// },
-			// {
-			//   test: /\.js$/,
-			//   loader: 'eslint',
-			//   include: projectRoot,
-			//   exclude: /node_modules/
-			// }
-		],
 		loaders: [
 			{
 				test: /\.vue$/,
@@ -60,27 +55,31 @@ module.exports = {
 			},
 			{
 				test: /\.js$/,
-				loader: 'babel-loader'
+				loader: 'babel'
 			},
 			{
-				test: /\.json$/,
-				loader: 'json'
+				test: /\.css$/,
+				loaders: ['style', 'css']
+				// loader:  extractTextPlugin.extract("style-loader","css-loader")
 			},
 			{
-				test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-				loader: 'url',
+				test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
+				loader: 'url-loader?limit=50000&name=[path][name].[ext]'
+			},
+			{
+				test: /\.(png|jpg|gif|svg)$/,
+				loader: 'file',
 				query: {
-					limit: 10000,
-					name: utils.assetsPath('img/[name].[hash:7].[ext]')
+					name: '[name].[ext]?[hash]'
 				}
 			},
 			{
-				test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-				loader: 'url',
-				query: {
-					limit: 10000,
-					name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-				}
+				test: /\.json/,
+				loader: 'json-loader'
+			},
+			{
+				test: /\.md/,
+				loader: 'vue-markdown-loader!vue'
 			}
 		]
 	},
@@ -88,11 +87,19 @@ module.exports = {
 	//   formatter: require('eslint-friendly-formatter')
 	// },
 	vue: {
-		loaders: utils.cssLoaders({ sourceMap: useCssSourceMap }),
-		postcss: [
-			require('autoprefixer')({
-				browsers: ['last 2 versions']
-			})
-		]
-	}
+		loaders: {
+			css: extractTextPlugin.extract('vue-style-loader', 'css-loader')
+		}
+	},
+	// devtool: '#eval-source-map',
+	plugins: [
+		// new webpack.BannerPlugin('This file is created by zhaoda'),
+		// new webpack.optimize.CommonsChunkPlugin('vender', 'vender.js'),
+		new extractTextPlugin("index.css", { allChunks: true }) 
+		// new webpack.optimize.UglifyJsPlugin({
+		// 	compress: {
+		// 		warnings: false
+		// 	}
+		// })
+	]
 }

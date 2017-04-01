@@ -1,23 +1,27 @@
 <template>
-    <div :class="classes" @click="handleClick" @mousemove="handleMouseMove">
-        <div class="date-picker-header">
-            <span>日</span>
-            <span>一</span>
-            <span>二</span>
-            <span>三</span>
-            <span>四</span>
-            <span>五</span>
-            <span>六</span>
-        </div>
-        <span :index="index" :class="getCellCls(cell)" v-for="(cell,index) in readCells">{{ cell.text }}</span>
+    <div :class="prefixCls + '-body'" @click="handleClick" @mousemove="handleMouseMove">
+		<div :class="prefixCls + '-cells'">
+			<div :class="prefixCls + '-weeks'">
+				<span>日</span>
+				<span>一</span>
+				<span>二</span>
+				<span>三</span>
+				<span>四</span>
+				<span>五</span>
+				<span>六</span>
+			</div>
+			<div v-for="(row,i) in rows" :class="prefixCls + '-row'">
+				<span :index="i*7+j" :class="getCellCls(cell)" v-for="(cell,j) in row">{{ cell.text }}</span>
+			</div>
+		</div>
     </div>
 </template>
 
 <script>
     import { getFirstDayOfMonth, getDayCountOfMonth } from '../util';
-    import { deepCopy } from '../../../utils/assist';
+    import { deepCopy } from '../../../../utils/assist';
     
-    const prefixCls = 'ivu-date-picker-cells';
+    const prefixCls = 'date-picker';
     const clearHours = function (time) {
         const cloneDate = new Date(time);
         cloneDate.setHours(0, 0, 0, 0);
@@ -80,11 +84,6 @@
             }
         },
         computed: {
-            classes () {
-                return [
-                    `${prefixCls}`
-                ];
-            },
             cells () {
                 const date = new Date(this.year, this.month, 1);
                 let day = getFirstDayOfMonth(date);    // day of first day
@@ -159,7 +158,17 @@
                 }
 
                 return cells;
-            }
+            },
+			rows () {
+				var rows = [],
+					length = this.cells.length,
+					count = Math.ceil(length / 7);
+
+				for (var i = 0; i < count; i++) {
+					rows[i] = this.cells.slice(i * 7, (i + 1) * 7);
+				}
+				return rows;
+			}
         },
         methods: {
             getDateOfCell (cell) {
@@ -263,14 +272,13 @@
             },
             getCellCls (cell) {
                 return [
-                    `${prefixCls}-cell`,
                     {
-                        [`${prefixCls}-cell-selected`]: cell.selected || cell.start || cell.end,
-                        [`${prefixCls}-cell-disabled`]: cell.disabled,
-                        [`${prefixCls}-cell-today`]: cell.type === 'today',
-                        [`${prefixCls}-cell-prev-month`]: cell.type === 'prev-month',
-                        [`${prefixCls}-cell-next-month`]: cell.type === 'next-month',
-                        [`${prefixCls}-cell-range`]: cell.range && !cell.start && !cell.end
+                        [`cell-selected`]: cell.selected || cell.start || cell.end,
+                        [`cell-disabled`]: cell.disabled,
+                        [`today`]: cell.type === 'today',
+                        [`prev-month`]: cell.type === 'prev-month',
+                        [`next-month`]: cell.type === 'next-month',
+                        [`cell-range`]: cell.range && !cell.start && !cell.end
                     }
                 ];
             }

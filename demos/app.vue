@@ -1,12 +1,12 @@
 <template>
 	<div id='app'>
-		<el-select textField="text" valueField="value" :checkedItem="option" placeholder="请选择" @change="change">
+		<el-select textField="text" valueField="value" :checkedItem="option" placeholder="placeholder" @change="change" :required="required">
         	<el-option v-for="item in options" :text.sync="item.label" :value.sync="item.value"></el-option>
 		</el-select>
 		<input type="button" value="获取选中项" @click="submit" />
 
         
-		<el-select textField="text" valueField="value" placeholder="请选择" @change="change">
+		<el-select textField="text" valueField="value" placeholder="placeholder" @change="change">
         	<el-option v-for="item in options" :text.sync="item.label" :value.sync="item.value"></el-option>
 		</el-select>
 		<input type="button" value="获取value&text" @click="submit" />
@@ -36,6 +36,8 @@ export default {
         }],
         value: '选项2',
 		text: '',
+		required:'required',
+		placeholder:'qweee',
         option: {value:'选项3',text:''} 
       }
     },

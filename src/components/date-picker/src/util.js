@@ -1,4 +1,4 @@
-import dateUtil from '../../utils/date';
+import dateUtil from '../../../utils/date';
 
 export const toDate = function(date) {
     date = new Date(date);
