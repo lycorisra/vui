@@ -8,79 +8,116 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.js"></script>
     <script src="../dist/select/todo.js"></script>
+    <style>
+        .date-picker-row {
+            position: relative;
+            width: 100%;
+            height: 24px;
+            text-align: justify;
+        }
+        
+        .date-picker-row i,
+        .date-picker-row span {
+            width: 24px;
+            line-height: 24px;
+            display: inline-block;
+            text-align: center;
+            font-style: normal;
+        }
+        
+        .date-picker-row:after {
+            content: "";
+            display: inline-block;
+            /*position: relative;
+    top: -28px;
+    *top: -9px;
+    height: 1px;
+    line-height: 0;*/
+            width: 100%;
+            /*background: #333;
+    z-index: -1;
+    *zoom: 1;*/
+        }
+    </style>
 </head>
 
 <body>
     <div class="container" id="app">
-    <div class="row">
-        <div class="col-sm-12">
-            <h3>My Components</h3>
-
-            <todo-item :todos="todos01"></todo-item>
+        <div class="date-picker-row">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>My Components</h3>
 
-</div>
-<script type="x-template" id="component-todo">
-    <ul class="list-group" v-if="todos && todos.length > 0">
-        <li class="list-group-item" v-for="todo in todos" :class="{special: !todo.isSpecial}">
-            {{todo.title}}
-            <button class="btn btn-xs  pull-right" :class="{'btn-success': todo.isSpecial,'btn-danger': !todo.isSpecial }" @click="changeActive(todo)">
+                <todo-item :todos="todos01"></todo-item>
+            </div>
+        </div>
+
+    </div>
+    <script type="x-template" id="component-todo">
+        <ul class="list-group" v-if="todos && todos.length > 0">
+            <li class="list-group-item" v-for="todo in todos" :class="{special: !todo.isSpecial}">
+                {{todo.title}}
+                <button class="btn btn-xs  pull-right" :class="{'btn-success': todo.isSpecial,'btn-danger': !todo.isSpecial }" @click="changeActive(todo)">
                 {{todo.isSpecial ? 'DONE' : 'What?'}}
             </button>
-        </li>
-    </ul>
-    <div v-else>
-        <p>There isn't any todo</p>
-    </div>
-</script>
+            </li>
+        </ul>
+        <div v-else>
+            <p>There isn't any todo</p>
+        </div>
+    </script>
 
-<script>
-    // var todoItem = Vue.extend({
-    //     template: '#component-todo',
-    //     props: ['todos'],
-    //     methods: {
-    //         changeActive(todo) {
-    //             todo.isSpecial = !todo.isSpecial;
-    //         }
-    //     }
-    // })
+    <script>
+        // var todoItem = Vue.extend({
+        //     template: '#component-todo',
+        //     props: ['todos'],
+        //     methods: {
+        //         changeActive(todo) {
+        //             todo.isSpecial = !todo.isSpecial;
+        //         }
+        //     }
+        // })
 
-    // Vue.component('todo-item', todoItem);
+        // Vue.component('todo-item', todoItem);
 
-    new Vue({
-        el: '#app',
-        data: {
-            todos: [{
-                id: 1,
-                title: 'zgo to shoping',
-                isSpecial: false
-            }, {
-                id: 2,
-                title: 'jump for sport',
-                isSpecial: true
-            }, {
-                id: 3,
-                title: 'welcome vueJs',
-                isSpecial: true
-            }],
-            todos01: [{
-                id: 1,
-                title: 'so so crazy',
-                isSpecial: true
-            }, {
-                id: 2,
-                title: 'i v ini',
-                isSpecial: false
-            }, {
-                id: 3,
-                title: 'nothing is there',
-                isSpecial: true
-            }]
-        }
-    })
-
-
-</script>
+        new Vue({
+            el: '#app',
+            data: {
+                todos: [{
+                    id: 1,
+                    title: 'zgo to shoping',
+                    isSpecial: false
+                }, {
+                    id: 2,
+                    title: 'jump for sport',
+                    isSpecial: true
+                }, {
+                    id: 3,
+                    title: 'welcome vueJs',
+                    isSpecial: true
+                }],
+                todos01: [{
+                    id: 1,
+                    title: 'so so crazy',
+                    isSpecial: true
+                }, {
+                    id: 2,
+                    title: 'i v ini',
+                    isSpecial: false
+                }, {
+                    id: 3,
+                    title: 'nothing is there',
+                    isSpecial: true
+                }]
+            }
+        })
+    </script>
 </body>
+
 </html>

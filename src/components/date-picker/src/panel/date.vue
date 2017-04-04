@@ -1,4 +1,3 @@
-
 <template>
     <div>
         <div :class="[prefixCls + '-sidebar']" v-if="shortcuts.length">

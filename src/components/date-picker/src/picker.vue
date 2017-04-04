@@ -12,9 +12,11 @@
                 </input>
             </slot>
         </div>
-        <drop v-show="opened" :placement="placement" :transition="transition" ref="drop">
-            <div ref="picker"></div>
-        </drop>
+        <transition :name="transition">
+            <drop v-show="opened" :placement="placement" ref="drop">
+                <div ref="picker"></div>
+            </drop>
+        </transition>
     </div>
 </template>
 
@@ -22,11 +24,16 @@
     import Vue from 'vue';
     import drop from '../../../components/select/src/dropdown.vue';
     import clickoutside from '../../../directives/clickoutside';
-    import { oneOf } from '../../../utils/assist';
-    import { formatDate, parseDate } from './util';
+    import {
+        oneOf
+    } from '../../../utils/assist';
+    import {
+        formatDate,
+        parseDate
+    } from './util';
 
     const prefixCls = 'date-picker';
- 
+
     const DEFAULT_FORMATS = {
         date: 'yyyy-MM-dd',
         month: 'yyyy-MM',
@@ -129,8 +136,12 @@
     };
 
     export default {
-        components: { drop },
-        directives: { clickoutside },
+        components: {
+            drop
+        },
+        directives: {
+            clickoutside
+        },
         props: {
             format: {
                 type: String
@@ -160,7 +171,7 @@
                 default: null
             },
             size: {
-                validator (value) {
+                validator(value) {
                     return oneOf(value, ['small', 'large']);
                 }
             },
@@ -169,7 +180,7 @@
                 default: ''
             },
             placement: {
-                validator (value) {
+                validator(value) {
                     return oneOf(value, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end']);
                 },
                 default: 'bottom-start'
@@ -178,27 +189,28 @@
                 type: Object
             }
         },
-        data () {
+        data() {
             return {
                 prefixCls: prefixCls,
                 showClose: false,
                 visible: false,
+                visible1: true,
                 picker: null,
                 internalValue: '',
-                disableClickOutSide: false    // fixed when click a date,trigger clickoutside to close picker
+                disableClickOutSide: false // fixed when click a date,trigger clickoutside to close picker
             };
         },
         computed: {
-            opened () {
+            opened() {
                 return this.open === null ? this.visible : this.open;
             },
-            iconType () {
+            iconType() {
                 let icon = 'ios-calendar-outline';
                 if (this.type === 'time' || this.type === 'timerange') icon = 'ios-clock-outline';
                 if (this.showClose) icon = 'ios-close';
                 return icon;
             },
-            transition () {
+            transition() {
                 if (this.placement === 'bottom-start' || this.placement === 'bottom' || this.placement === 'bottom-end') {
                     return 'slide-up';
                 } else {
@@ -215,7 +227,7 @@
                 return 'day';
             },
             visualValue: {
-                get () {
+                get() {
                     const value = this.internalValue;
                     if (!value) return;
                     const formatter = (
@@ -226,7 +238,7 @@
                     return formatter(value, this.format || format);
                 },
 
-                set (value) {
+                set(value) {
                     if (value) {
                         const type = this.type;
                         const parser = (
@@ -243,16 +255,16 @@
             }
         },
         methods: {
-            handleClose () {
+            handleClose() {
                 if (this.open !== null) return;
                 if (!this.disableClickOutSide) this.visible = false;
                 this.disableClickOutSide = false;
             },
-            handleFocus () {
+            handleFocus() {
                 if (this.readonly) return;
                 this.visible = true;
             },
-            handleInputChange (event) {
+            handleInputChange(event) {
                 const oldValue = this.visualValue;
                 const value = event.target.value;
 
@@ -275,19 +287,16 @@
                     if (parsedValue[0] instanceof Date && parsedValue[1] instanceof Date) {
                         if (parsedValue[0].getTime() > parsedValue[1].getTime()) {
                             correctValue = oldValue;
-                        } 
-                        else {
+                        } else {
                             correctValue = formatter(parsedValue, format);
                         }
                         // todo 判断disabledDate
-                    } 
-                    else {
+                    } else {
                         correctValue = oldValue;
                     }
 
                     correctDate = parser(correctValue, format);
-                } 
-                else if (type === 'time') {
+                } else if (type === 'time') {
                     const parsedDate = parseDate(value, format);
 
                     if (parsedDate instanceof Date) {
@@ -300,34 +309,28 @@
                                 (this.disabledMinutes.length && this.disabledMinutes.indexOf(minutes) > -1) ||
                                 (this.disabledSeconds.length && this.disabledSeconds.indexOf(seconds) > -1)) {
                                 correctValue = oldValue;
-                            } 
-                            else {
+                            } else {
                                 correctValue = formatDate(parsedDate, format);
                             }
-                        } 
-                        else {
+                        } else {
                             correctValue = formatDate(parsedDate, format);
                         }
-                    } 
-                    else {
+                    } else {
                         correctValue = oldValue;
                     }
 
                     correctDate = parseDate(correctValue, format);
-                } 
-                else {
+                } else {
                     const parsedDate = parseDate(value, format);
 
                     if (parsedDate instanceof Date) {
                         const options = this.options || false;
                         if (options && options.disabledDate && typeof options.disabledDate === 'function' && options.disabledDate(new Date(parsedDate))) {
                             correctValue = oldValue;
-                        } 
-                        else {
+                        } else {
                             correctValue = formatDate(parsedDate, format);
                         }
-                    } 
-                    else {
+                    } else {
                         correctValue = oldValue;
                     }
 
@@ -340,27 +343,27 @@
 
                 if (correctValue !== oldValue) this.emitChange(correctDate);
             },
-            handleInputMouseenter () {
+            handleInputMouseenter() {
                 if (this.readonly || this.disabled) return;
                 if (this.visualValue && this.clearable) {
                     this.showClose = true;
                 }
             },
-            handleInputMouseleave () {
+            handleInputMouseleave() {
                 this.showClose = false;
             },
-            handleIconClick () {
+            handleIconClick() {
                 if (!this.showClose) return;
                 this.handleClear();
             },
-            handleClear () {
+            handleClear() {
                 this.visible = false;
                 this.internalValue = '';
                 this.value = '';
                 // this.$emit('on-clear');
                 this.$dispatch('on-form-change', '');
             },
-            showPicker () {
+            showPicker() {
                 if (!this.picker) {
                     const type = this.type;
 
@@ -409,7 +412,7 @@
                 }
                 this.picker.resetView && this.picker.resetView();
             },
-            emitChange (date) {
+            emitChange(date) {
                 const type = this.type;
                 const format = this.format || DEFAULT_FORMATS[type];
                 const formatter = (
@@ -426,7 +429,7 @@
             }
         },
         watch: {
-            visible (val) {
+            visible(val) {
                 if (val) {
                     this.showPicker();
                     this.$refs.drop.update();
@@ -444,7 +447,7 @@
             },
             value: {
                 immediate: true,
-                handler (val) {
+                handler(val) {
                     const type = this.type;
                     const parser = (
                         TYPE_VALUE_RESOLVER_MAP[type] ||
@@ -461,7 +464,7 @@
                     this.internalValue = val;
                 }
             },
-            open (val) {
+            open(val) {
                 if (val === true) {
                     this.visible = val;
                     this.$emit('on-open-change', true);
@@ -470,17 +473,21 @@
                 }
             }
         },
-        beforeDestroy () {
+        beforeDestroy() {
             if (this.picker) {
                 this.picker.$destroy();
             }
         },
-        ready () {
+        ready() {
             if (this.open !== null) this.visible = this.open;
         },
-        created () {
-            this.$on('on-form-blur', () => { return false; });
-             this.$on('on-form-change', () => { return false; });
+        created() {
+            this.$on('on-form-blur', () => {
+                return false;
+            });
+            this.$on('on-form-change', () => {
+                return false;
+            });
         }
     };
 </script>

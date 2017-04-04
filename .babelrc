@@ -1,5 +1,5 @@
 {
-  "presets": ["es2015", "stage-2"],
-  "plugins": ["transform-runtime"],
-  "comments": false
+    "presets": ["es2015", "stage-2"],
+    /*  "plugins": ["transform-runtime"],*/ // 这行代码会导致locale/format.js文件下的 && typeof args === 'object'这个语句出错
+    "comments": false
 }

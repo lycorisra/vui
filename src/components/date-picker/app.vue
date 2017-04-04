@@ -5,16 +5,15 @@
 </template>
 
 <script>
-	import '../../css/components/date-picker.css';
-	import DatePicker from './src/picker/date-picker';
+    import DatePicker from './src/picker/date-picker';
 
-	export default {
-	name: 'app',
-		data() {
-			return {}
-		},
-		components: {
-			DatePicker
-		}
-	}
+    export default {
+        name: 'app',
+        data() {
+            return {}
+        },
+        components: {
+            DatePicker
+        }
+    }
 </script>

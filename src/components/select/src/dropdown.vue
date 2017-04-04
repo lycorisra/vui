@@ -5,7 +5,9 @@
 </template>
 
 <script>
-    import { getStyle } from '../../../utils/assist'
+    import {
+        getStyle
+    } from '../../../utils/assist'
     import Popper from 'popper.js'
 
     export default {
@@ -15,28 +17,27 @@
                 default: 'bottom-start'
             }
         },
-        data () {
+        data() {
             return {
                 popper: null,
                 width: ''
             };
         },
         computed: {
-            styles () {
+            styles() {
                 let style = {};
-                if (this.width) 
+                if (this.width)
                     style.width = `${this.width}px`;
                 return style;
             }
         },
         methods: {
-            update () {
+            update() {
                 if (this.popper) {
                     this.$nextTick(() => {
                         this.popper.update();
                     });
-                }
-                else {
+                } else {
                     this.$nextTick(() => {
                         this.popper = new Popper(this.$parent.$refs.reference, this.$el, {
                             gpuAcceleration: false,
@@ -51,7 +52,7 @@
                     })
                 }
             },
-            destroy () {
+            destroy() {
                 if (this.popper) {
                     this.resetTransformOrigin(this.popper);
                     setTimeout(() => {
@@ -60,19 +61,22 @@
                     }, 300);
                 }
             },
-            resetTransformOrigin (popper) {
-                let placementMap = {top: 'bottom', bottom: 'top'};
+            resetTransformOrigin(popper) {
+                let placementMap = {
+                    top: 'bottom',
+                    bottom: 'top'
+                };
                 let placement = popper.popper.getAttribute('x-placement').split('-')[0];
                 let origin = placementMap[placement];
                 popper.popper.style.transformOrigin = `center ${ origin }`;
             }
         },
-        compiled () {
+        compiled() {
             this.$on('on-update-popper', this.update);
             this.$on('on-destroy-popper', this.destroy);
         },
-        beforeDestory () {
-            if(this.popper) {
+        beforeDestory() {
+            if (this.popper) {
                 this.popper.destroy();
             }
         }
