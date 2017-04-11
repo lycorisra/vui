@@ -1,11 +1,13 @@
 <template>
     <div :class="classes" @click="handleClick">
-        <span :class="getCellCls(cell)" v-for="(cell,index) in cells"><em :index="index">{{ cell.text }}</em></span>
+        <span :class="getCellCls(cell)" v-for="(cell,index) in cells">{{ cell.text }}月</span>
     </div>
 </template>
 <script>
-    import { deepCopy } from '../../../../utils/assist';
-    const prefixCls = 'ivu-date-picker-cells';
+    import {
+        deepCopy
+    } from '../../../../utils/assist';
+    const prefixCls = 'date-picker-cells';
 
     export default {
         props: {
@@ -19,13 +21,13 @@
             }
         },
         computed: {
-            classes () {
+            classes() {
                 return [
                     `${prefixCls}`,
                     `${prefixCls}-month`
                 ];
             },
-            cells () {
+            cells() {
                 let cells = [];
                 const cell_tmpl = {
                     text: '',
@@ -39,7 +41,7 @@
 
                     const date = new Date(this.date);
                     date.setMonth(i);
-                    cell.disabled = typeof this.disabledDate === 'function' && this.disabledDate(date)  && this.selectionMode === 'month';
+                    cell.disabled = typeof this.disabledDate === 'function' && this.disabledDate(date) && this.selectionMode === 'month';
 
                     cell.selected = Number(this.month) === i;
                     cells.push(cell);
@@ -49,16 +51,15 @@
             }
         },
         methods: {
-            getCellCls (cell) {
+            getCellCls(cell) {
                 return [
-                    `${prefixCls}-cell`,
-                    {
+                    `${prefixCls}-cell`, {
                         [`${prefixCls}-cell-selected`]: cell.selected,
                         [`${prefixCls}-cell-disabled`]: cell.disabled
                     }
                 ];
             },
-            handleClick (event) {
+            handleClick(event) {
                 const target = event.target;
                 if (target.tagName === 'EM') {
                     const index = parseInt(event.target.getAttribute('index'));
@@ -69,7 +70,7 @@
                 }
                 this.$emit('on-pick-click');
             },
-            tCell (cell) {
+            tCell(cell) {
                 return this.t(`i.datepicker.months.m${cell}`);
             }
         }

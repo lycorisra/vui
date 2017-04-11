@@ -1,5 +1,5 @@
 <template>
-    <div class="select-dropdown">
+    <div class="select-dropdown no-select">
         <slot></slot>
     </div>
 </template>
@@ -63,8 +63,8 @@
             },
             resetTransformOrigin(popper) {
                 let placementMap = {
-                    top: 'bottom',
-                    bottom: 'top'
+                    top: 'top',
+                    bottom: 'bottom'
                 };
                 let placement = popper.popper.getAttribute('x-placement').split('-')[0];
                 let origin = placementMap[placement];

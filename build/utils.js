@@ -59,7 +59,6 @@ exports.styleLoaders = function(options) {
             loader: loader
         })
     }
-    console.log(output, 'output')
     return output
 }
 
@@ -72,6 +71,5 @@ exports.getArgv = function(key) {
         var name = args[index + 1];
         value = args[index + 1];
     }
-    console.log('getArgv', value, args)
     return value;
 }

@@ -1,11 +1,13 @@
 <template>
     <div :class="classes" @click="handleClick">
-        <span :class="getCellCls(cell)" v-for="(cell,index) in cells"><em :index="index">{{ cell.text }}</em></span>
+        <span :class="getCellCls(cell)" v-for="(cell,index) in cells">{{ cell.text }}</span>
     </div>
 </template>
 <script>
-    import { deepCopy } from '../../../../utils/assist';
-    const prefixCls = 'ivu-date-picker-cells';
+    import {
+        deepCopy
+    } from '../../../../utils/assist';
+    const prefixCls = 'date-picker-cells';
 
     export default {
         props: {
@@ -17,7 +19,7 @@
             }
         },
         computed: {
-            classes () {
+            classes() {
                 return [
                     `${prefixCls}`,
                     `${prefixCls}-year`
@@ -26,7 +28,7 @@
             startYear() {
                 return Math.floor(this.year / 10) * 10;
             },
-            cells () {
+            cells() {
                 let cells = [];
                 const cell_tmpl = {
                     text: '',
@@ -50,10 +52,9 @@
             }
         },
         methods: {
-            getCellCls (cell) {
+            getCellCls(cell) {
                 return [
-                    `${prefixCls}-cell`,
-                    {
+                    `${prefixCls}-cell`, {
                         [`${prefixCls}-cell-selected`]: cell.selected,
                         [`${prefixCls}-cell-disabled`]: cell.disabled
                     }
@@ -65,7 +66,7 @@
             prevTenYear() {
                 this.$emit('on-pick', Number(this.year) - 10, false);
             },
-            handleClick (event) {
+            handleClick(event) {
                 const target = event.target;
                 if (target.tagName === 'EM') {
                     const cell = this.cells[parseInt(event.target.getAttribute('index'))];
