@@ -5,19 +5,21 @@
         </div>
         <div :class="[prefixCls + '-content']">
             <div :class="[prefixCls + '-header']" v-show="currentView!=='time'">
-                <span @click="prevYear">
-                    <icon type="ios-arrow-left"></icon>
+                <span class="left-double-arrow" @click="prevYear">
+                    <icon type="left-double"></icon>
                 </span>
-                <span :class="[prefixCls + '-prev']" @click="prevMonth" v-show="currentView === 'date'">
-                    <icon type="ios-arrow-left"></icon>
+                <span class="left-arrow"  @click="prevMonth" v-show="currentView === 'date'">
+                    <icon type="left"></icon>
                 </span>
-                <span :class="[prefixCls + '-header-label']" @click="showYearPicker">{{ yearLabel }}</span>
-                <span :class="[prefixCls + '-header-label']" @click="showMonthPicker" v-show="currentView === 'date'">{{ monthLabel }}</span>
-                <span :class="[prefixCls + '-next-double']" @click="nextYear">
-                    <icon type="ios-arrow-right"></icon>
+
+                <span class="year" @click="showYearPicker">{{ yearLabel }}</span>
+                <span class="month" @click="showMonthPicker" v-show="currentView === 'date'">{{ monthLabel }}</span>
+               
+                <span class="right-double-arrow" @click="nextYear">
+                    <icon type="right-double"></icon>
                 </span>
-                <span :class="[prefixCls + '-next']" @click="nextMonth" v-show="currentView === 'date'">
-                    <icon type="ios-arrow-right"></icon>
+                <span class="right-arrow" @click="nextMonth" v-show="currentView === 'date'">
+                    <icon type="right"></icon>
                 </span>
             </div>
             <div :class="[prefixCls + '-mode']">
@@ -32,7 +34,7 @@
                     @on-pick-click="handlePickClick">
                 </date-table>
                 <year-table v-show="currentView === 'year'"
-                    ref="year-table"
+                    ref="yearTable"
                     :year="year"
                     :date="date"
                     :selection-mode="selectionMode"
@@ -41,7 +43,7 @@
                     @on-pick-click="handlePickClick">
                 </year-table>
                 <month-table v-show="currentView === 'month'"
-                    ref="month-table"
+                    ref="monthTable"
                     :month="month"
                     :date="date"
                     :selection-mode="selectionMode"
@@ -49,7 +51,7 @@
                     @on-pick="handleMonthPick"
                     @on-pick-click="handlePickClick">
                 </month-table>
-                <time-picker ref="time-picker" show-date v-show="currentView === 'time'" @on-pick="handleTimePick" @on-pick-click="handlePickClick"></time-picker>
+                <time-picker ref="timePicker" show-date v-show="currentView === 'time'" @on-pick="handleTimePick" @on-pick-click="handlePickClick"></time-picker>
             </div>
             <confirm
                 v-if="confirm"
@@ -71,16 +73,25 @@
     import confirm from '../base/confirm.vue';
     import Mixin from './mixin';
     import Locale from '../../../../mixins/locale';
-    import { initTimeDate } from '../util';
-    
+    import {
+        initTimeDate
+    } from '../util';
+
     const prefixCls = 'date-picker';
     const datePrefixCls = 'ivu-date-picker';
 
     export default {
         name: 'DatePicker',
-        mixins: [ Mixin, Locale ],
-        components: { icon, DateTable, YearTable, MonthTable, TimePicker, confirm },
-        data () {
+        mixins: [Mixin, Locale],
+        components: {
+            icon,
+            DateTable,
+            YearTable,
+            MonthTable,
+            TimePicker,
+            confirm
+        },
+        data() {
             return {
                 prefixCls: prefixCls,
                 datePrefixCls: datePrefixCls,
@@ -99,15 +110,14 @@
             };
         },
         computed: {
-            classes () {
+            classes() {
                 return [
-                    `${prefixCls}-body-wrapper`,
-                    {
+                    `${prefixCls}-body-wrapper`, {
                         [`${prefixCls}-with-sidebar`]: this.shortcuts.length
                     }
                 ];
             },
-            yearLabel () {
+            yearLabel() {
                 const tYear = '年';
                 const year = this.year;
                 if (!year) return '';
@@ -117,13 +127,16 @@
                 }
                 return `${year}${tYear}`;
             },
-            monthLabel () {
-                const month = this.month + 1;
-                return this.t(`i.datepicker.month${month}`);
+            monthLabel() {
+                var month = (this.month + 1);
+                if (month < 10) {
+                    month = '0' + month;
+                }
+                return month + '月';
             }
         },
         watch: {
-            value (newVal) {
+            value(newVal) {
                 if (!newVal) return;
                 newVal = new Date(newVal);
                 if (!isNaN(newVal)) {
@@ -133,26 +146,26 @@
                 }
                 if (this.showTime) this.$refs.timePicker.value = newVal;
             },
-            date (val) {
+            date(val) {
                 if (this.showTime) this.$refs.timePicker.date = val;
             },
-            format (val) {
+            format(val) {
                 if (this.showTime) this.$refs.timePicker.format = val;
             },
-            currentView (val) {
+            currentView(val) {
                 if (val === 'time') this.$refs.timePicker.updateScroll();
             }
         },
         methods: {
-            resetDate () {
+            resetDate() {
                 this.date = new Date(this.date);
             },
-            handleClear () {
+            handleClear() {
                 this.date = new Date();
                 this.$emit('on-pick', '');
                 if (this.showTime) this.$refs.timePicker.handleClear();
             },
-            resetView (reset = false) {
+            resetView(reset = false) {
                 if (this.currentView !== 'time' || reset) {
                     if (this.selectionMode === 'month') {
                         this.currentView = 'month';
@@ -167,7 +180,7 @@
                 this.month = this.date.getMonth();
                 if (reset) this.isTime = false;
             },
-            prevYear () {
+            prevYear() {
                 if (this.currentView === 'year') {
                     this.$refs.yearTable.prevTenYear();
                 } else {
@@ -176,7 +189,7 @@
                     this.resetDate();
                 }
             },
-            nextYear () {
+            nextYear() {
                 if (this.currentView === 'year') {
                     this.$refs.yearTable.nextTenYear();
                 } else {
@@ -185,27 +198,27 @@
                     this.resetDate();
                 }
             },
-            prevMonth () {
+            prevMonth() {
                 this.month--;
                 if (this.month < 0) {
                     this.month = 11;
                     this.year--;
                 }
             },
-            nextMonth () {
+            nextMonth() {
                 this.month++;
                 if (this.month > 11) {
                     this.month = 0;
                     this.year++;
                 }
             },
-            showYearPicker () {
+            showYearPicker() {
                 this.currentView = 'year';
             },
-            showMonthPicker () {
+            showMonthPicker() {
                 this.currentView = 'month';
             },
-            handleToggleTime () {
+            handleToggleTime() {
                 if (this.currentView === 'date') {
                     this.currentView = 'time';
                     this.isTime = true;
@@ -227,7 +240,7 @@
 
                 this.resetDate();
             },
-            handleMonthPick (month) {
+            handleMonthPick(month) {
                 this.month = month;
                 const selectionMode = this.selectionMode;
                 if (selectionMode !== 'month') {
@@ -242,7 +255,7 @@
                     this.$emit('on-pick', value);
                 }
             },
-            handleDatePick (value) {
+            handleDatePick(value) {
                 if (this.selectionMode === 'day') {
                     this.$emit('on-pick', new Date(value.getTime()));
                     this.date.setFullYear(value.getFullYear());
@@ -252,11 +265,11 @@
 
                 this.resetDate();
             },
-            handleTimePick (date) {
+            handleTimePick(date) {
                 this.handleDatePick(date);
             }
         },
-        compiled () {
+        compiled() {
             if (this.selectionMode === 'month') {
                 this.currentView = 'month';
             }

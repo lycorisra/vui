@@ -5,7 +5,6 @@
                 <input :value="visualValue"
                     @change="handleInputChange"
                     @focus="handleFocus"
-                    @click="handleIconClick"
                     @mouseenter="handleInputMouseenter"
                     @mouseleave="handleInputMouseleave"
                     :icon="iconType">
@@ -31,6 +30,7 @@
         formatDate,
         parseDate
     } from './util';
+    import Emitter from '../../../utils/emitter';
 
     const prefixCls = 'date-picker';
 
@@ -136,6 +136,7 @@
     };
 
     export default {
+        mixins: [Emitter],
         components: {
             drop
         },
@@ -196,8 +197,10 @@
                 visible: false,
                 visible1: true,
                 picker: null,
+                /*value: '',*/
                 internalValue: '',
-                disableClickOutSide: false // fixed when click a date,trigger clickoutside to close picker
+                disableClickOutSide: false, // fixed when click a date,trigger clickoutside to close picker
+                currentValue: this.value
             };
         },
         computed: {
@@ -340,6 +343,7 @@
                 this.visualValue = correctValue;
                 event.target.value = correctValue;
                 this.internalValue = correctDate;
+                this.currentValue = correctDate;
 
                 if (correctValue !== oldValue) this.emitChange(correctDate);
             },
@@ -359,9 +363,9 @@
             handleClear() {
                 this.visible = false;
                 this.internalValue = '';
-                this.value = '';
-                // this.$emit('on-clear');
-                this.$dispatch('on-form-change', '');
+                this.currentValue = '';
+                this.$emit('on-clear');
+                this.dispatch('on-form-change', '');
             },
             showPicker() {
                 if (!this.picker) {
@@ -390,7 +394,7 @@
 
                     this.picker.$on('on-pick', (date, visible = false) => {
                         if (!this.confirm) this.visible = visible;
-                        this.value = date;
+                        this.currentValue = date;
                         this.picker.value = date;
                         this.picker.resetView && this.picker.resetView();
                         this.emitChange(date);
@@ -425,7 +429,7 @@
                 }
 
                 this.$emit('on-change', newDate);
-                this.$dispatch('on-form-change', newDate);
+                this.dispatch('on-form-change', newDate);
             }
         },
         watch: {
@@ -445,7 +449,10 @@
                     this.picker.handleClear();
                 }
             },
-            value: {
+            value(val) {
+                this.currentValue = val;
+            },
+            currentValue: {
                 immediate: true,
                 handler(val) {
                     const type = this.type;

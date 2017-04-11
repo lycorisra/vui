@@ -4,9 +4,9 @@
 
 .date-picker .select-dropdown {
     position: absolute;
+    top: 22px !important;
     z-index: 100;
     width: auto;
-    /*padding: 5px;*/
     border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
@@ -16,6 +16,7 @@
 
 .date-picker-body {
     float: left;
+    padding: 5px;
 }
 
 .date-picker-header {
@@ -23,19 +24,61 @@
     border-bottom: 1px solid #e3e8ee;
 }
 
-.date-picker-cells {
-    /*width: 196px;*/
-    /*margin: 10px;*/
+.date-picker-header span {
+    cursor: pointer;
+}
+
+.date-picker-header span:hover {
+    color: red;
+}
+
+.date-picker-header .year,
+.date-picker-header .month {
+    margin: 1px;
 }
 
 .date-picker-header {
-    padding: 5px 0;
+    padding: 8px 0;
+}
+
+.date-picker-header .left-arrow,
+.date-picker-header .left-double-arrow {
+    float: left;
+}
+
+.date-picker-header .left-double-arrow {
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+.date-picker-header .right-arrow,
+.date-picker-header .right-double-arrow {
+    float: right;
+}
+
+.date-picker-header .right-double-arrow {
+    margin-left: 5px;
+    margin-right: 10px;
 }
 
 .date-picker-weeks,
 .date-picker-weeks {
     font-size: 0;
     white-space: nowrap;
+}
+
+.date-picker-cells-year,
+.date-picker-cells-month {
+    padding: 5px;
+    text-align: center;
+}
+
+.date-picker-cells.date-picker-cells-year span,
+.date-picker-cells.date-picker-cells-month span {
+    width: 40px;
+    height: 28px;
+    line-height: 28px;
+    margin: 8px 10px;
 }
 
 .date-picker-cells span {
@@ -48,6 +91,18 @@
     cursor: pointer;
 }
 
+.date-picker-cells span.prev-month,
+.date-picker-cells span.next-month {
+    color: #c3cbd6;
+}
+
+.date-picker-cells span.cell-selected,
+.date-picker-cells span.cell-selected:hover {
+    background: #39f;
+    color: #fff;
+    border-radius: 3px;
+}
+
 .date-picker-cells span:hover {
     background-color: #e1f0fe;
     font-weight: bold;
@@ -56,45 +111,6 @@
 .container {
     width: 400px;
     margin: 50px auto 0;
-}
-
-.slide-down-appear,
-.slide-down-enter-active,
-.slide-down-leave-active {
-    animation-duration: .3s;
-    animation-fill-mode: both;
-    animation-play-state: paused
-}
-
-.slide-down-appear,
-.slide-down-enter-active {
-    animation-name: ivuSlideDownIn;
-    animation-play-state: running
-}
-
-.slide-down-leave-active {
-    animation-name: ivuSlideDownOut;
-    animation-play-state: running
-}
-
-.slide-down-appear,
-.slide-down-enter-active {
-    opacity: 0;
-    animation-timing-function: ease-in-out
-}
-
-.slide-down-leave-active {
-    animation-timing-function: ease-in-out
-}
-
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity .5s
-}
-
-.fade-enter,
-.fade-leave-to {
-    opacity: 0
 }
 
 .slide-up-appear,
@@ -126,19 +142,18 @@
     animation-timing-function: ease-in-out
 }
 
-
-/*@keyframes ivuSlideUpIn {
+@keyframes ivuSlideUpIn {
     0% {
         opacity: 0;
         transform-origin: 0 0;
-        transform: scaleY(.8)
+        transform: scaleY(.1)
     }
     to {
         opacity: 1;
         transform-origin: 0 0;
-        transform: scaleY(1)
+        transform: scaleY(1);
     }
-}*/
+}
 
 @keyframes ivuSlideUpOut {
     0% {
@@ -149,6 +164,6 @@
     to {
         opacity: 0;
         transform-origin: 0 0;
-        transform: scaleY(.8)
+        transform: scaleY(.1);
     }
 }
