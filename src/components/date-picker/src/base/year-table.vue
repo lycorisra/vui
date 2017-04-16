@@ -1,6 +1,10 @@
 <template>
     <div :class="classes" @click="handleClick">
+<<<<<<< HEAD
         <span :class="getCellCls(cell)" v-for="(cell,index) in cells" :index="index">{{ cell.text }}</span>
+=======
+        <span :class="getCellCls(cell)" v-for="(cell,index) in cells">{{ cell.text }}</span>
+>>>>>>> a2fbc2b11a3cc9d8feee92dda8465c0cc47a61c0
     </div>
 </template>
 <script>
@@ -53,10 +57,19 @@
         },
         methods: {
             getCellCls(cell) {
+<<<<<<< HEAD
                 return [{
                     [`cell-selected`]: cell.selected,
                     [`cell-disabled`]: cell.disabled
                 }];
+=======
+                return [
+                    `${prefixCls}-cell`, {
+                        [`${prefixCls}-cell-selected`]: cell.selected,
+                        [`${prefixCls}-cell-disabled`]: cell.disabled
+                    }
+                ];
+>>>>>>> a2fbc2b11a3cc9d8feee92dda8465c0cc47a61c0
             },
             nextTenYear() {
                 this.$emit('on-pick', Number(this.year) + 10, false);
