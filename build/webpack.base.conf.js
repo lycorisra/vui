@@ -11,8 +11,9 @@ var projectRoot = path.resolve(__dirname, '../')
 
 var env = process.env.NODE_ENV
 
-var rootPath = process.env.NODE_PATH || path.join(__dirname, 'node_modules');
-
+var rootPath = process.env.NODE_PATH.replace(';','') || path.join(__dirname, 'node_modules');
+// var rootPath = 'F:/webfrontend/nodejs/node_modules' || path.join(__dirname, 'node_modules');
+console.log(process.env.NODE_PATH,'process.env.NODE_PATH');
 module.exports = {
     entry: {
         app: main
