@@ -5,6 +5,23 @@
         </div>
         <div :class="[prefixCls + '-content']">
             <div :class="[prefixCls + '-header']" v-show="currentView!=='time'">
+<<<<<<< HEAD
+                <span class="left-double-arrow" @click="prevYear">
+                    <icon type="left-double"></icon>
+                </span>
+                <span class="left-arrow"  @click="prevMonth" v-show="currentView === 'date'">
+                    <icon type="left"></icon>
+                </span>
+
+                <span class="year" @click="showYearPicker">{{ yearLabel }}</span>
+                <span class="month" @click="showMonthPicker" v-show="currentView === 'date'">{{ monthLabel }}</span>
+               
+                <span class="right-double-arrow" @click="nextYear">
+                    <icon type="right-double"></icon>
+                </span>
+                <span class="right-arrow" @click="nextMonth" v-show="currentView === 'date'">
+                    <icon type="right"></icon>
+=======
                 <span @click="prevYear" v-show="currentView === 'date'">
                     <icon type="left-double"></icon>
                 </span>
@@ -18,6 +35,7 @@
                 </span>
                 <span :class="[prefixCls + '-next']" @click="nextMonth" v-show="currentView === 'date'">
                     <icon type="right-double"></icon>
+>>>>>>> a2fbc2b11a3cc9d8feee92dda8465c0cc47a61c0
                 </span>
             </div>
             <div :class="[prefixCls + '-mode']">
@@ -32,7 +50,7 @@
                     @on-pick-click="handlePickClick">
                 </date-table>
                 <year-table v-show="currentView === 'year'"
-                    ref="year-table"
+                    ref="yearTable"
                     :year="year"
                     :date="date"
                     :selection-mode="selectionMode"
@@ -41,7 +59,7 @@
                     @on-pick-click="handlePickClick">
                 </year-table>
                 <month-table v-show="currentView === 'month'"
-                    ref="month-table"
+                    ref="monthTable"
                     :month="month"
                     :date="date"
                     :selection-mode="selectionMode"
@@ -49,7 +67,7 @@
                     @on-pick="handleMonthPick"
                     @on-pick-click="handlePickClick">
                 </month-table>
-                <time-picker ref="time-picker" show-date v-show="currentView === 'time'" @on-pick="handleTimePick" @on-pick-click="handlePickClick"></time-picker>
+                <time-picker ref="timePicker" show-date v-show="currentView === 'time'" @on-pick="handleTimePick" @on-pick-click="handlePickClick"></time-picker>
             </div>
             <confirm
                 v-if="confirm"
