@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Date-picker type="date" placeholder="选择日期" style="width: 200px"></Date-picker>
+		<Date-picker type="date" placeholder="选择日期" style="width: 200px" @on-pick="onpicker()"></Date-picker>
 	</div>
 </template>
 
@@ -14,6 +14,12 @@
         },
         components: {
             DatePicker
-        }
+        },
+		methods:{
+			onpicker:function(a){
+
+				alert(a);
+			}
+		}
     }
 </script>

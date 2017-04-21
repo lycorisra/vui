@@ -5,7 +5,6 @@
         </div>
         <div :class="[prefixCls + '-content']">
             <div :class="[prefixCls + '-header']" v-show="currentView!=='time'">
-<<<<<<< HEAD
                 <span class="left-double-arrow" @click="prevYear">
                     <icon type="left-double"></icon>
                 </span>
@@ -21,21 +20,6 @@
                 </span>
                 <span class="right-arrow" @click="nextMonth" v-show="currentView === 'date'">
                     <icon type="right"></icon>
-=======
-                <span @click="prevYear" v-show="currentView === 'date'">
-                    <icon type="left-double"></icon>
-                </span>
-                <span :class="[prefixCls + '-prev']" @click="prevMonth">
-                    <icon type="left"></icon>
-                </span>
-                <span class="year" @click="showYearPicker">{{ yearLabel }}</span>
-                <span class="month" @click="showMonthPicker" v-show="currentView === 'date'">{{ monthLabel }}</span>
-                <span :class="[prefixCls + '-next-double']" @click="nextYear">
-                    <icon type="right"></icon>
-                </span>
-                <span :class="[prefixCls + '-next']" @click="nextMonth" v-show="currentView === 'date'">
-                    <icon type="right-double"></icon>
->>>>>>> a2fbc2b11a3cc9d8feee92dda8465c0cc47a61c0
                 </span>
             </div>
             <div :class="[prefixCls + '-mode']">
