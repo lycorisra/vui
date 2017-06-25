@@ -7,7 +7,7 @@
             "type": "node",
             "request": "launch",
             "name": "启动程序",
-            "program": "${workspaceRoot}\\build/dev-client.js",
+            "program": "${workspaceRoot}\\build/dev-server.js",
             /*"program": "${workspaceRoot}\\src/components/date-picker/main.js",*/
             /*"program": "${workspaceRoot}\\src/components/select/webpack.config.js",*/
             "cwd": "${workspaceRoot}"

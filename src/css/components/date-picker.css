@@ -32,23 +32,17 @@
     color: red;
 }
 
-<<<<<<< HEAD
 .date-picker-header .year,
 .date-picker-header .month {
     margin: 1px;
-=======
-.date-picker-header .year {
-    margin-left: 15px;
 }
 
 .date-picker-header .month {
     margin-right: 15px;
->>>>>>> a2fbc2b11a3cc9d8feee92dda8465c0cc47a61c0
 }
 
 .date-picker-header {
     padding: 8px 0;
-<<<<<<< HEAD
 }
 
 .date-picker-header .left-arrow,
@@ -69,8 +63,6 @@
 .date-picker-header .right-double-arrow {
     margin-left: 5px;
     margin-right: 10px;
-=======
->>>>>>> a2fbc2b11a3cc9d8feee92dda8465c0cc47a61c0
 }
 
 .date-picker-weeks,
@@ -112,10 +104,7 @@
 .date-picker-cells span.cell-selected:hover {
     background: #39f;
     color: #fff;
-<<<<<<< HEAD
     border-radius: 3px;
-=======
->>>>>>> a2fbc2b11a3cc9d8feee92dda8465c0cc47a61c0
 }
 
 .date-picker-cells span:hover {
