@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<el-select textField="text" valueField="value" :checkedItem="option" placeholder="placeholder" :required="required">
+		<span v-text="option.value"></span>
+		<span v-text="option.text"></span>
+		<el-select textfield="text" valuefield="value" :checkeditem="option" placeholder="placeholder" :required="required">
 			<el-option v-for="item in options" :text.sync="item.label" :value.sync="item.value"></el-option>
 		</el-select>
 	</div>
@@ -38,6 +40,12 @@
 				required:'required',
 				placeholder:'qweee',
 				option: {value:'选项3',text:''} 
+			}
+		},
+		computed: {
+			checkeditem: function () {
+				console.log(option)
+				return '';
 			}
 		},
 		components: {

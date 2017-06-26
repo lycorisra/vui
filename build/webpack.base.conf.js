@@ -86,8 +86,8 @@ module.exports = {
         historyApiFallback: true,
         noInfo: true
     },*/
-	plugins: [
-		/* 注意：这句代码会报如下错误：
+    plugins: [
+        /* 注意：这句代码会报如下错误：
 		ERROR in F:/webfrontend/nodejs/~/css-loader?sourceMap!F:/webfrontend/nodejs/~/vue-loader/lib/style-compiler?{"vue":true,"id":"data-v-739f9002","scoped":false,"h
 		asInlineConfig":false}!F:/webfrontend/nodejs/~/vue-loader/lib/selector.js?type=styles&index=0!./src/components/select/src/select.vue
 		Module build failed: TypeError: Path must be a string. Received undefined

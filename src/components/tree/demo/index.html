@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link href="iview/styles/iview.css" rel="stylesheet"/>
+	<script src="vue.min.js"></script>
+    <script src="iview/iview.min.js"></script>
+    <script src="data.js"></script>
+	<style type="text/css">
+		span.item {
+			display: inline-block;
+		}
+
+		.vtree {
+			/*width:300px;
+		border: 1px solid #ddd;*/
+			margin: auto;
+			max-height:500px;
+			overflow: auto;
+		}
+
+		.vtree .nodeitem {
+			word-wrap: break-word;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		.nodes li {
+			cursor: pointer;
+			color: #495060;
+			line-height: 24px;
+		}
+
+		.nodes li .nodeitem:hover {
+			background-color: #ddd;
+		}
+
+		.nodeitem.node-selected {
+			font-weight: bold;
+			/*background-color: #FBE4C8;*/
+		}
+
+		.level1>.nodeitem {
+			padding-left: 0.5rem;
+		}
+
+		.level2>.nodeitem {
+			padding-left: 1.2rem;
+		}
+
+		.level3>.nodeitem {
+			padding-left: 1.8rem;
+		}
+
+		.level4>.nodeitem {
+			padding-left: 2.7rem;
+		}
+
+		.level5>.nodeitem {
+			padding-left: 4rem;
+		}
+
+		.level6>.nodeitem {
+			padding-left: 5rem;
+		}
+
+		.level7>.nodeitem {
+			padding-left: 6rem;
+		}
+
+		 ::-webkit-scrollbar {
+			width: 6px;
+			height: 6px;
+		}
+
+		 ::-webkit-scrollbar-track-piece {
+			background-color: #cccccc;
+			-webkit-border-radius: 6px;
+		}
+
+		 ::-webkit-scrollbar-thumb:vertical {
+			height: 5px;
+			background-color: gray;
+			-webkit-border-radius: 6px;
+		}
+
+		 ::-webkit-scrollbar-thumb:horizontal {
+			width: 5px;
+			background-color: #CCCCCC;
+			-webkit-border-radius: 6px;
+		}
+		.tree-child{
+			/*transition: height 1.2s ease-in-out;*/
+			/*height: 0;*/
+			/*transform: scaleY(0);
+    		height: 0px;*/
+		}
+		.node-title{
+			/*transform-origin: 0 0;*/
+			/*transform: scaleY(0);*/
+		}
+		[name='slide-up']{
+			transform-origin: 0 0;
+			transition: all 1.2s ease-in-out;
+			transform: scaleY(0);
+    		height: 0px;
+		}
+		.node-expand{
+			/*transition: all 1.2s ease-in-out;*/
+			/*transform: scaleY(1);*/
+		}
+		.node-expand [name='slide-up']{
+			/*transition: all 1.2s ease-in-out;*/
+			transform: scaleY(1);
+			height: auto;
+		}
+.slide-up-appear,
+.slide-up-enter-active,
+.slide-up-leave-active {
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    animation-play-state: paused
+}
+
+.slide-up-appear,
+.slide-up-enter-active {
+    animation-name: ivuSlideUpIn;
+    animation-play-state: running
+}
+
+.slide-up-leave-active {
+    animation-name: ivuSlideUpOut;
+    animation-play-state: running
+}
+
+.slide-up-appear,
+.slide-up-enter-active {
+    opacity: 0;
+    animation-timing-function: ease-in-out
+}
+
+.slide-up-leave-active {
+    animation-timing-function: ease-in-out
+}
+
+@keyframes ivuSlideUpIn {
+    0% {
+		height:0;
+        opacity: 0;
+        transform-origin: 0 0;
+        transform: scaleY(.1)
+    }
+    to {
+        opacity: 1;
+        transform-origin: 0 0;
+        transform: scaleY(1);
+    }
+}
+
+@keyframes ivuSlideUpOut {
+    0% {
+        opacity: 1;
+        transform-origin: 0 0;
+        transform: scaleY(1);
+    }
+    to {
+		height:0;
+        opacity: 0;
+        transform-origin: 0 0;
+        transform: scaleY(.1);
+    }
+}
+	</style>
+	<script src="tree.js"></script>
+
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<form id="searchForm" class="nowrap" action="../../AjaxHandler/AccountHandler.ashx">
+			<div class="m10">
+				<label>部门：</label>
+				<span class="item w200">
+                    <Dropdown trigger="custom" :visible="visible" class="disableselect">
+                        <input type="text" v-model="departname" @click="visible=!visible;" />
+                        <Dropdown-menu slot="list" class="droptree">
+                            <u-tree :nodes="depts" v-model="param.deptid" :checkednodes="checkedNodes"></u-tree>
+                        </Dropdown-menu>
+                    </Dropdown>
+                </span>
+				<label>部门：</label>
+				<span class="item w200">
+                    <Dropdown trigger="custom" :visible="visible" class="disableselect">
+                        <input type="text" v-model="param.deptid" @click="visible=!visible;" />
+                        <Dropdown-menu slot="list" class="droptree">
+                            <Tree :data="depts" @on-select-change="onSelect" v-model="param.deptid"></Tree>
+                        </Dropdown-menu>
+                    </Dropdown>
+                </span>
+				<span>选择的节点：</span>
+				<span v-for="item in checkedNodes" v-text="item.title"></span>
+			</div>
+			<div>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript">
+		"use strict"; // let等块级作用域需要在严格模式下运行
+		var index,
+			form = document.getElementById('searchForm'),
+			baseurl = form.action;
+
+		init(data);
+		function init(data) {
+			var app = new Vue({
+				el: '#app',
+				mounted: function () {
+					this.checkedNodes = [];
+				},
+				data: function () {
+					return {
+						depts: data,
+						visible: false,
+						param: { deptid: '' },
+						list: [],
+						checkedNodes: []
+					}
+				},
+				computed: {
+					departname: function () {
+						var name = '';
+						this.checkedNodes.forEach(c => name += c.title);
+						return name;
+					}
+				},
+				methods: {
+					isValid: function () {
+						return true;
+					},
+					onSelect: function (nodes) {
+						if (nodes.length === 0) {
+							//this.visible = false;
+							return;
+						}
+						var node = nodes[0],
+							expand = node.expand,
+							hasChild = node.children.length > 0;
+
+						this.param.deptid = node.title;
+						// 如果有子节点，
+						if (hasChild) {
+							//并且当前expand状态为true（已展开），则选中该节点，并关闭dropdown
+							if (expand) {
+								node.selected = true;
+								this.visible = false;
+							}
+							else {
+								node.selected = false;
+								node.expand = true;
+								return;
+							}
+						}
+					}
+				},
+				watch: {
+				}
+			});
+		}
+	</script>
+</body>
+
+</html>

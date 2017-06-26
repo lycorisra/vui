@@ -120,7 +120,7 @@
                     // this.$parent[this.value] = option.value;
                     // this.$parent[this.text] = option.text;
                     var obj = (this.checkeditem) ? this.checkeditem : this.$parent;
-
+					this.checkeditem.value=option.value;
                     this.$parent.$set(obj, this.valuefield, option.value);
                     this.$parent.$set(obj, this.textfield, option.text);
                     this.$parent.$set(obj, this.tagfield, option.tag);
