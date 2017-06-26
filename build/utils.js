@@ -66,7 +66,7 @@ exports.getArgv = function(key) {
     var value,
         args = process.env.args.split(','),
         index = args.indexOf(key);
-
+console.log('getArgv',args,process.env.args);
     if (index > -1) {
         var name = args[index + 1];
         value = args[index + 1];

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "test",
     "dev": "node build/dev-server.js",
-    "cook": "cooking watch -c build/cooking.demo.js -p"
+    "cook": "cooking watch -c build/cooking.demo.js -p",
+	"run-tree":"npm run dev --- -c tree"
   },
   "keywords": [
     "vue.js",

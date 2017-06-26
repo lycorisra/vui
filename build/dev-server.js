@@ -20,7 +20,6 @@ var webpackConfig = process.env.NODE_ENV === 'testing' ?
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
 var proxyTable = config.dev.proxyTable;
-
 var app = express();
 var compiler = webpack(webpackConfig);
 
