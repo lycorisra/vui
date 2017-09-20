@@ -103,21 +103,20 @@
 			/*transform-origin: 0 0;*/
 			/*transform: scaleY(0);*/
 		}
-		[name='slide-up']{
+		/*[name='slide-up']{
 			transform-origin: 0 0;
 			transition: all 1.2s ease-in-out;
 			transform: scaleY(0);
     		height: 0px;
-		}
+		}*/
 		.node-expand{
 			/*transition: all 1.2s ease-in-out;*/
 			/*transform: scaleY(1);*/
 		}
-		.node-expand [name='slide-up']{
-			/*transition: all 1.2s ease-in-out;*/
+		/*.node-expand [name='slide-up']{
 			transform: scaleY(1);
 			height: auto;
-		}
+		}*/
 .slide-up-appear,
 .slide-up-enter-active,
 .slide-up-leave-active {
@@ -192,7 +191,7 @@
                         </Dropdown-menu>
                     </Dropdown>
                 </span>
-				<label>部门：</label>
+				<!--<label>部门：</label>
 				<span class="item w200">
                     <Dropdown trigger="custom" :visible="visible" class="disableselect">
                         <input type="text" v-model="param.deptid" @click="visible=!visible;" />
@@ -200,7 +199,7 @@
                             <Tree :data="depts" @on-select-change="onSelect" v-model="param.deptid"></Tree>
                         </Dropdown-menu>
                     </Dropdown>
-                </span>
+                </span>-->
 				<span>选择的节点：</span>
 				<span v-for="item in checkedNodes" v-text="item.title"></span>
 			</div>

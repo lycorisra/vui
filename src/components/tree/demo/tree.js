@@ -62,25 +62,6 @@ Vue.component('u-tree', {
 				}
 			},
 			methods: {
-				getCellCls(cell) {
-					return [
-						`${prefixCls}-cell`, {
-							[`${prefixCls}-cell-selected`]: cell.selected,
-							[`${prefixCls}-cell-disabled`]: cell.disabled
-						}
-					];
-					return [{
-						[`cell-selected`]: cell.selected,
-						[`cell-disabled`]: cell.disabled
-					}];
-
-					return [
-						`${prefixCls}-cell`, {
-							[`${prefixCls}-cell-selected`]: cell.selected,
-							[`${prefixCls}-cell-disabled`]: cell.disabled
-						}
-					];
-				},
 				getIcon() {
 					var icon = '';
 					if (this.node.expand)
